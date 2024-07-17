@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Animation</title>
+    <style>
+        svg {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <svg id="canvas" width="1000" height="600" viewbox="0 0 1000 600">
+        <use id="redGhost" x="200" y="200" href="#ghost" fill="red" />
+        <defs>
+            <g id="ghost">
+
+                <circle cx="60" cy="60" r="60" />
+                <rect x="0" y="60" width="120" height="100" />
+                <circle cx="20" cy="160" r="20" />
+                <circle cx="60" cy="160" r="20" />
+                <circle cx="100" cy="160" r="20" />
+                <circle cx="35" cy="60" r="10" fill="white" />
+                <circle cx="85" cy="60" r="10" fill="white" />
+                <!-- Pupils of the ghost -->
+                <circle cx="40" cy="60" r="5" fill="blue" />
+                <circle cx="90" cy="60" r="5" fill="blue" />
+            </g>
+        </defs>
+    </svg>
+    <script>
+        // Reference to the ghost element
+        let ghost = document.getElementById("redGhost");
+        let x = 260;
+        let y = 260;
+        document.addEventListener('mousemove', (event) => {
+            x = event.clientX - 60;
+            y = event.clientY - 60;
+        });
+
+        setInterval(() => {
+            let currentX = parseFloat(ghost.getAttribute("x"));
+            let currentY = parseFloat(ghost.getAttribute("y"));
+
+
+            let dx = (x - currentX) * 0.1;
+            let dy = (y - currentY) * 0.1;
+            ghost.setAttribute("x", currentX + dx);
+            ghost.setAttribute("y", currentY + dy);
+        }, 30) // Update every 30 milliseconds
+    </script>
+</body>
+
+</html>
